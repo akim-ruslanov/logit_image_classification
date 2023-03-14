@@ -2,6 +2,9 @@
 from image_processing import generate_dataset
 import numpy as np
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay
 
 if __name__ == "__main__":
     # arr = image_to_array("archive/Testing/glioma/Te-gl_0010.jpg", dimension=64)
@@ -27,7 +30,12 @@ if __name__ == "__main__":
 
     pred_prob = logisticRegr.predict_proba(test[:,1:])
 
+    roc = roc_auc_score(test[:,0], pred_prob, multi_class="ovo")
+    
+    
+
     print("Misclassification rate", sum(pred!=test[:,0])/test.shape[0])
+    print("ROC score", roc)
 
 
 
